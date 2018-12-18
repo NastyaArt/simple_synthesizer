@@ -11,10 +11,13 @@ import {
     Input
 } from 'reactstrap';
 import { Transcription } from './transcription';
+import Crunker from 'crunker';
 
 class App extends Component {
     constructor(props) {
         super(props);
+
+        this.audio = new Crunker();
 
         this.state = {
             inputText: 'Саша кушал кашу',
@@ -66,7 +69,7 @@ class App extends Component {
     }
 
     handleChange = (e) => {
-        this.setState({inputText: e.target.value});
+        this.setState({ inputText: e.target.value });
     }
 
     getTranscription = () => {
@@ -74,15 +77,26 @@ class App extends Component {
 
         result = Transcription.getTranscription(this.state.inputText);
 
-        this.setState({result: result});
+        this.setState({ result: result });
     }
 
     voiceText = () => {
         this.getTranscription();
 
-        let result = Transcription.getTranscriptionArray(this.state.inputText);
+        let transcriptionArray = Transcription.getTranscriptionArray(this.state.inputText);
 
-        console.log(result);
+        transcriptionArray = transcriptionArray.map((elem) => {
+            return `letters/${elem}.mp3`;
+        });
+
+        this.audio.fetchAudio(...transcriptionArray)
+            .then(buffers => this.audio.concatAudio(buffers))
+            .then(buffer => {
+                this.audio.play(buffer);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 }
 
