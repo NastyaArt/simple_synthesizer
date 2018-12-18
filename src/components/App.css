@@ -1,0 +1,35 @@
+.App {
+  height: 100%;
+  width: 100%;
+}
+
+.content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.input-text-component-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-group-input-text {
+  width: 80%;
+  max-width: 500px;
+}
+
+.transcriptions-component-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-group-transcription {
+  width: 80%;
+  max-width: 500px;
+}
