@@ -86,7 +86,8 @@ class App extends Component {
         let transcriptionArray = Transcription.getTranscriptionArray(this.state.inputText);
 
         transcriptionArray = transcriptionArray.map((elem) => {
-            return `letters/${elem}.mp3`;
+            return `newLetters/${elem}.wav`;
+            // return `letters/${elem}.mp3`;
         });
 
         this.audio.fetchAudio(...transcriptionArray)
